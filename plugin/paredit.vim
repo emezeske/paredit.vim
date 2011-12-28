@@ -111,15 +111,18 @@ function! PareditInitBuffer()
         nnoremap <buffer> <silent> X            :<C-U>call PareditEraseBck()<CR>
         nnoremap <buffer> <silent> s            :<C-U>call PareditEraseFwd()<CR>i
         nnoremap <buffer> <silent> D            v$:<C-U>call PareditDelete(visualmode(),1)<CR>
-        nnoremap <buffer> <silent> C            v$:<C-U>call PareditChange(visualmode(),1)<CR>
+        " FIXME: PareditChange breaks the repeat (".") command for change actions.
+        "nnoremap <buffer> <silent> C            v$:<C-U>call PareditChange(visualmode(),1)<CR>
         nnoremap <buffer> <silent> d            :<C-U>call PareditSetDelete(v:count)<CR>g@
         vnoremap <buffer> <silent> d            :<C-U>call PareditDelete(visualmode(),1)<CR>
         vnoremap <buffer> <silent> x            :<C-U>call PareditDelete(visualmode(),1)<CR>
         vnoremap <buffer> <silent> <Del>        :<C-U>call PareditDelete(visualmode(),1)<CR>
-        nnoremap <buffer> <silent> c            :set opfunc=PareditChange<CR>g@
-        vnoremap <buffer> <silent> c            :<C-U>call PareditChange(visualmode(),1)<CR>
+        " FIXME: PareditChange breaks the repeat (".") command for change actions.
+        "nnoremap <buffer> <silent> c            :set opfunc=PareditChange<CR>g@
+        "vnoremap <buffer> <silent> c            :<C-U>call PareditChange(visualmode(),1)<CR>
         nnoremap <buffer> <silent> dd           :<C-U>call PareditDeleteLines()<CR>
-        nnoremap <buffer> <silent> cc           :<C-U>call PareditChangeLines()<CR>
+        " FIXME: PareditChange breaks the repeat (".") command for change actions.
+        " nnoremap <buffer> <silent> cc           :<C-U>call PareditChangeLines()<CR>
         nnoremap <buffer> <silent> p            :<C-U>call PareditPut('p')<CR>
         nnoremap <buffer> <silent> P            :<C-U>call PareditPut('P')<CR>
         execute 'nnoremap <buffer> <silent> ' . g:paredit_leader.'w(  :<C-U>call PareditWrap("(",")")<CR>'
@@ -155,7 +158,8 @@ function! PareditInitBuffer()
             execute 'nnoremap <buffer> <silent> ' . g:paredit_leader.'S  :<C-U>normal! S<CR>'
         else
             " Longer keymaps with <Leader> prefix
-            nnoremap <buffer> <silent> S            V:<C-U>call PareditChange(visualmode(),1)<CR>
+            " FIXME: PareditChange breaks the repeat (".") command for change actions.
+            " nnoremap <buffer> <silent> S            V:<C-U>call PareditChange(visualmode(),1)<CR>
             execute 'nnoremap <buffer> <silent> ' . g:paredit_leader.'<  :<C-U>call PareditMoveLeft()<CR>'
             execute 'nnoremap <buffer> <silent> ' . g:paredit_leader.'>  :<C-U>call PareditMoveRight()<CR>'
             execute 'nnoremap <buffer> <silent> ' . g:paredit_leader.'O  :<C-U>call PareditSplit()<CR>'
