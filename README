@@ -1,5 +1,0 @@
-This is a version of slimv for vim with everything removed
-except the excellent paredit mode.  This allows it to be used
-with VimClojure, which I personally find more useful than slimv.
-
-Original script: http://www.vim.org/scripts/script.php?script_id=2531
