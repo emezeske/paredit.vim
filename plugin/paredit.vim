@@ -1,7 +1,7 @@
 " paredit.vim:
 "               Paredit mode for Slimv
-" Version:      0.9.0
-" Last Change:  26 Sep 2011
+" Version:      0.9.3
+" Last Change:  30 Nov 2011
 " Maintainer:   Tamas Kovacs <kovisoft at gmail dot com>
 " License:      This file is placed in the public domain.
 "               No warranty, express or implied.
@@ -351,11 +351,10 @@ endfunction
 
 " Is this a Slimv REPL buffer?
 function! s:IsReplBuffer()
-    if exists( 'g:slimv_repl_dir' ) && exists( 'g:slimv_repl_file' )
-        let repl_name = g:slimv_repl_dir . g:slimv_repl_file
-        return bufnr( repl_name ) == bufnr( '%' )
+    if exists( 'g:slimv_repl_name' )
+        return bufnr( g:slimv_repl_name ) == bufnr( '%' )
     else
-        return bufname( '%' ) =~ '.*\.repl\..*'
+        return 0
     endif
 endfunction
 
@@ -365,7 +364,7 @@ function! s:GetReplPromptPos()
     if !s:IsReplBuffer()
         return [0, 0]
     endif
-    return [ line( "'s" ), col( "'s" ) ]
+    return [ b:repl_prompt_line, b:repl_prompt_col ]
 endfunction
 
 " Is the current top level form balanced, i.e all opening delimiters
@@ -376,7 +375,7 @@ function! s:IsBalanced()
     let line = getline( '.' )
     let matchb = max( [l-g:paredit_matchlines, 1] )
     let matchf = min( [l+g:paredit_matchlines, line('$')] )
-    let prompt = line( "'s" )
+    let [prompt, cp] = s:GetReplPromptPos()
     if s:IsReplBuffer() && l >= prompt && matchb < prompt
         " Do not go before the last command prompt in the REPL buffer
         let matchb = prompt
@@ -622,7 +621,8 @@ endfunction
 
 " Handle <BS> keypress
 function! PareditBackspace( repl_mode )
-    if a:repl_mode && line( "." ) == line( "'s" ) && col( "." ) <= col( "'s" )
+    let [lp, cp] = s:GetReplPromptPos()
+    if a:repl_mode && line( "." ) == lp && col( "." ) <= cp
         " No BS allowed before the previous EOF mark in the REPL
         " i.e. don't delete Lisp prompt
         return ""
