@@ -1,4 +1,9 @@
-# paredit.vim
+# NOTICE: DO NOT USE THIS REPOSITORY.  THE UPSTREAM MAINTAINERS NOW PROVIDE THIS PLUGIN.  THIS PROJECT IS DEPRECATED.
+
+# [Upstream (Github)](https://github.com/vim-scripts/paredit.vim)
+# [Upstream (Bitbucket)](https://bitbucket.org/kovisoft/paredit)
+
+## Overview
 
 This is a version of [slimv][1] for Vim with everything removed except
 the excellent paredit mode.  This allows it to be used with VimClojure,
